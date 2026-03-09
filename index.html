@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="tr" id="doc">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FaceMetric AI</title>
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-light: #818cf8;
+            --primary-dark: #4f46e5;
+            --secondary-color: #ec4899;
+            --bg-dark: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --text-light: #f8fafc;
+            --text-muted: #cbd5e1;
+            --font-main: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .lang-en {
+            display: none;
+        }
+
+        html.lang-en-active .lang-tr {
+            display: none !important;
+        }
+
+        html.lang-en-active .lang-en {
+            display: inline-block !important;
+        }
+
+        /* Special case for block elements */
+        html.lang-en-active div.lang-en,
+        html.lang-en-active h1.lang-en,
+        html.lang-en-active h2.lang-en,
+        html.lang-en-active h3.lang-en,
+        html.lang-en-active p.lang-en {
+            display: block !important;
+        }
+
+        /* Animated Background Gradients bg-gradient, blobs */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            overflow: hidden;
+            background: linear-gradient(to bottom, #0f172a, #1a233a);
+        }
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            animation: float 20s infinite alternate;
+        }
+
+        .blob-1 {
+            top: -10%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: rgba(99, 102, 241, 0.3);
+        }
+
+        .blob-2 {
+            bottom: -20%;
+            right: -10%;
+            width: 700px;
+            height: 700px;
+            background: rgba(236, 72, 153, 0.2);
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            50% {
+                transform: translate(100px, 50px) scale(1.1);
+            }
+
+            100% {
+                transform: translate(-50px, 100px) scale(0.9);
+            }
+        }
+
+        /* Navbar */
+        nav {
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #818cf8, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-light);
+        }
+
+        .lang-switch {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 4px;
+            display: flex;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .lang-switch span {
+            padding: 4px 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 2;
+            transition: color 0.3s;
+        }
+
+        .lang-indicator {
+            position: absolute;
+            background: var(--primary-color);
+            border-radius: 16px;
+            height: calc(100% - 8px);
+            width: 45px;
+            top: 4px;
+            left: 4px;
+            z-index: 1;
+            transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        html.lang-en-active .lang-indicator {
+            transform: translateX(45px);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-family: var(--font-main);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.6);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Sections */
+        .section-box {
+            padding: 6rem 5%;
+            position: relative;
+            z-index: 10;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding-top: 7rem;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(99, 102, 241, 0.15);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 50px;
+            color: var(--primary-light);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #a5b4fc, #f9a8d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: clamp(1.1rem, 2vw, 1.25rem);
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.8;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .mockup-container {
+            margin-top: 4rem;
+            perspective: 1000px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .mockup {
+            width: 100%;
+            height: 450px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transform: rotateX(10deg);
+            transition: transform 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .mockup:hover {
+            transform: rotateX(0deg);
+        }
+
+        .mockup-inner {
+            text-align: center;
+        }
+
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary-color);
+            box-shadow: 0 0 20px 5px var(--primary-color);
+            animation: scan 3s infinite linear;
+            opacity: 0.8;
+        }
+
+        @keyframes scan {
+            0% {
+                top: -10%;
+            }
+
+            100% {
+                top: 110%;
+            }
+        }
+
+        .face-wireframe {
+            width: 150px;
+            height: 200px;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .face-point {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--secondary-color);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--secondary-color);
+        }
+
+        .fp-1 {
+            top: 40%;
+            left: 30%;
+        }
+
+        .fp-2 {
+            top: 40%;
+            right: 30%;
+        }
+
+        .fp-3 {
+            top: 55%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .fp-4 {
+            top: 75%;
+            left: 40%;
+        }
+
+        .fp-5 {
+            top: 75%;
+            right: 40%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 2.5rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-light);
+            font-size: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .stats {
+            padding: 4rem 5%;
+            background: rgba(15, 23, 42, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item h4 {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #fff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+        }
+
+        /* Contact Section */
+        .contact-box {
+            background: linear-gradient(145deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-item svg {
+            color: var(--primary-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 5% 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--text-light);
+        }
+
+        .copyright {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .mockup {
+                height: 300px;
+                transform: rotateX(0);
+            }
+
+            .contact-info {
+                gap: 1.5rem;
+                flex-direction: column;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="bg-gradient">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="#" class="logo">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 7V5a2 2 0 0 1 2-2h2"></path>
+                <path d="M17 3h2a2 2 0 0 1 2 2v2"></path>
+                <path d="M21 17v2a2 2 0 0 1-2 2h-2"></path>
+                <path d="M7 21H5a2 2 0 0 1-2-2v-2"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M12 15v.01"></path>
+            </svg>
+            FaceMetric AI
+        </a>
+        <div class="nav-links">
+            <a href="#ozellikler" class="lang lang-tr">Özellikler</a>
+            <a href="#ozellikler" class="lang lang-en">Features</a>
+
+            <a href="#nasil-calisir" class="lang lang-tr">Nasıl Çalışır</a>
+            <a href="#nasil-calisir" class="lang lang-en">How it Works</a>
+
+            <a href="#iletisim" class="lang lang-tr">İletişim</a>
+            <a href="#iletisim" class="lang lang-en">Contact</a>
+
+            <div class="lang-switch" onclick="toggleLanguage()">
+                <div class="lang-indicator"></div>
+                <span style="color: #fff">TR</span>
+                <span style="color: #fff">EN</span>
+            </div>
+        </div>
+        <a href="#indir" class="btn btn-primary" style="padding: 0.6rem 1.2rem; font-size: 0.9rem;">
+            <span class="lang lang-tr">Hemen İndir</span>
+            <span class="lang lang-en">Download Now</span>
+        </a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="section-box hero">
+        <div>
+            <div class="badge">
+                <span class="lang lang-tr">AI Odaklı Yüz Analiz Platformu V1.0</span>
+                <span class="lang lang-en">AI-Powered Face Analysis Platform V1.0</span>
+            </div>
+
+            <h1 class="lang lang-tr">Yüzünüzün Potansiyelini <br><span>Yapay Zeka</span> ile Keşfedin.</h1>
+            <h1 class="lang lang-en">Discover Your Face's Potential <br>with <span>Artificial Intelligence</span>.</h1>
+
+            <p class="lang lang-tr">Altın oran, simetri ölçümleri ve gelişmiş cilt analizi algoritmalarıyla saniyeler
+                içinde yüzünüze dair detaylı ve profesyonel estetik skorlarınızı öğrenin.</p>
+            <p class="lang lang-en">Get your detailed and professional aesthetic scores in seconds with golden ratio,
+                symmetry measurements, and advanced skin analysis algorithms.</p>
+
+            <div class="hero-actions">
+                <a href="#indir" class="btn btn-primary">
+                    <span class="lang lang-tr">Uygulamayı İndir (iOS)</span>
+                    <span class="lang lang-en">Download App (iOS)</span>
+                </a>
+                <a href="#ozellikler" class="btn btn-outline">
+                    <span class="lang lang-tr">Daha Fazla Bilgi</span>
+                    <span class="lang lang-en">Learn More</span>
+                </a>
+            </div>
+
+            <div class="mockup-container">
+                <div class="mockup">
+                    <div class="scan-line"></div>
+                    <div class="mockup-inner">
+                        <div class="face-wireframe">
+                            <div class="face-point fp-1"></div>
+                            <div class="face-point fp-2"></div>
+                            <div class="face-point fp-3"></div>
+                            <div class="face-point fp-4"></div>
+                            <div class="face-point fp-5"></div>
+                        </div>
+                        <h3 class="lang lang-tr" style="color: #fff; margin-bottom: 5px;">AestheticAI Modeli Devrede
+                        </h3>
+                        <h3 class="lang lang-en" style="color: #fff; margin-bottom: 5px;">AestheticAI Model Active</h3>
+
+                        <p class="lang lang-tr" style="color: #94a3b8; font-size: 0.9rem;">Yüz hatları tanımlanıyor...
+                            %98 Eşleşme</p>
+                        <p class="lang lang-en" style="color: #94a3b8; font-size: 0.9rem;">Identifying facial
+                            features... 98% Match</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats" style="position: relative; z-index: 10;">
+        <div class="stats-container">
+            <div class="stat-item">
+                <h4>15+</h4>
+                <p class="lang lang-tr">Veri Noktası Ölçümü</p>
+                <p class="lang lang-en">Data Point Measurement</p>
+            </div>
+            <div class="stat-item">
+                <h4>99%</h4>
+                <p class="lang lang-tr">Analiz Doğruluğu</p>
+                <p class="lang lang-en">Analysis Accuracy</p>
+            </div>
+            <div class="stat-item">
+                <h4>PDF</h4>
+                <p class="lang lang-tr">Detaylı Çıktı Raporu</p>
+                <p class="lang lang-en">Detailed Export Report</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="ozellikler" class="section-box">
+        <div class="section-header">
+            <h2 class="lang lang-tr">Neden FaceMetric AI?</h2>
+            <h2 class="lang lang-en">Why FaceMetric AI?</h2>
+
+            <p class="lang lang-tr" style="color: var(--text-muted);">Gelişmiş Makine Öğrenmesi ile Profesyonel Analiz
+            </p>
+            <p class="lang lang-en" style="color: var(--text-muted);">Professional Analysis with Advanced Machine
+                Learning</p>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                    </svg></div>
+                <h3 class="lang lang-tr">Altın Oran ve Simetri</h3>
+                <h3 class="lang lang-en">Golden Ratio & Symmetry</h3>
+
+                <p class="lang lang-tr">Yüzünüzün matematiksel kusursuzluğunu hesaplar. Göz, burun, çene ve dudak
+                    oranlarınızı Altın Oran (Phi) prensibine göre milimetrik olarak değerlendirir.</p>
+                <p class="lang lang-en">Calculates the mathematical perfection of your face. Evaluates eyes, nose, chin,
+                    and lip proportions mathematically based on the Golden Ratio (Phi) principle.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg></div>
+                <h3 class="lang lang-tr">PDF Dışa Aktarma</h3>
+                <h3 class="lang lang-en">PDF Export</h3>
+
+                <p class="lang lang-tr">Analiz sonuçlarınızı yüksek çözünürlüklü, anlaşılır ve detaylı grafiklerden
+                    oluşan PDF raporları şeklinde paylaşabilir veya cihazınızda saklayabilirsiniz.</p>
+                <p class="lang lang-en">Share your analysis results as high-resolution, clear, and detailed PDF reports
+                    consisting of charts, or save them on your device.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg></div>
+                <h3 class="lang lang-tr">Tamamen Gizli Tutar</h3>
+                <h3 class="lang lang-en">Completely Private</h3>
+
+                <p class="lang lang-tr">Gizliliğiniz bizim için önemlidir. Yüz verileriniz doğrudan cihazınızda işlenir
+                    ve onayınız olmadan asla sunucularımızda saklanmaz veya paylaşılmaz.</p>
+                <p class="lang lang-en">Your privacy is important to us. Facial data is processed directly on your
+                    device and is never stored or shared on our servers without your consent.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                        </polygon>
+                    </svg></div>
+                <h3 class="lang lang-tr">Kapsamlı Estetik Puanı</h3>
+                <h3 class="lang lang-en">Comprehensive Aesthetic Score</h3>
+
+                <p class="lang lang-tr">Symmetry, Proportion, Clarity gibi çoklu metrikler üzerinden yüzünüze özel
+                    kapsamlı bir genel estetik skoru oluşturur ve geliştirilebilir alanları gösterir.</p>
+                <p class="lang lang-en">Generates a customized comprehensive aesthetic score for your face based on
+                    multiple metrics like Symmetry, Proportion, and Clarity, showing areas for improvement.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="iletisim" class="section-box">
+        <div class="contact-box">
+            <h2 class="lang lang-tr" style="font-size: 2.5rem; margin-bottom: 1rem;">Bizimle İletişime Geçin</h2>
+            <h2 class="lang lang-en" style="font-size: 2.5rem; margin-bottom: 1rem;">Get In Touch</h2>
+
+            <p class="lang lang-tr" style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Daha fazla bilgi
+                almak veya destek talepleriniz için bize ulaşabilirsiniz.</p>
+            <p class="lang lang-en" style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Reach out to us
+                for more information or support inquiries.</p>
+
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    <span class="lang lang-tr" style="font-size: 0.9rem; color: var(--text-muted);">E-Posta</span>
+                    <span class="lang lang-en" style="font-size: 0.9rem; color: var(--text-muted);">Email</span>
+                    <a href="mailto:info@idakimi.com">info@idakimi.com</a>
+                </div>
+                <div class="contact-item">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                        </path>
+                    </svg>
+                    <span class="lang lang-tr" style="font-size: 0.9rem; color: var(--text-muted);">Telefon</span>
+                    <span class="lang lang-en" style="font-size: 0.9rem; color: var(--text-muted);">Phone</span>
+                    <a href="tel:+447441922077">+44 744 192 2077</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h2 class="logo">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 7V5a2 2 0 0 1 2-2h2"></path>
+                    <path d="M17 3h2a2 2 0 0 1 2 2v2"></path>
+                    <path d="M21 17v2a2 2 0 0 1-2 2h-2"></path>
+                    <path d="M7 21H5a2 2 0 0 1-2-2v-2"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                FaceMetric AI
+            </h2>
+            <p class="lang lang-tr" style="color: var(--text-muted); max-width: 400px;">Geleceğin yüz analiz
+                teknolojilerini cebinize getiriyoruz.</p>
+            <p class="lang lang-en" style="color: var(--text-muted); max-width: 400px;">Bringing the future of facial
+                analysis technologies to your pocket.</p>
+
+            <div class="social-links">
+                <a href="https://github.com/evrenhaznedaroglu2024-ops/facemetric-ai" target="_blank"
+                    title="GitHub Repository">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path
+                            d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                        </path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2026 FaceMetric AI / Evren Haznedaroğlu. <span class="lang lang-tr">Tüm Hakları Saklıdır.</span><span
+                class="lang lang-en">All Rights Reserved.</span>
+        </div>
+    </footer>
+
+    <script>
+        function toggleLanguage() {
+            const html = document.getElementById('doc');
+            html.classList.toggle('lang-en-active');
+            if (html.classList.contains('lang-en-active')) {
+                html.lang = 'en';
+            } else {
+                html.lang = 'tr';
+            }
+        }
+    </script>
+</body>
+
+</html>
