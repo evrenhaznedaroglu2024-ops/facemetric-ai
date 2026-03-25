@@ -4,284 +4,383 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy - FaceMetric AI</title>
-    <meta name="description" content="FaceMetric AI Privacy Policy - Learn how we protect your data and privacy.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="FaceMetric AI Privacy Policy — Face data collection, retention, third-party sharing, and user rights. Compliant with Apple App Store Guideline 5.1.1(i).">
     <style>
         :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #12121a;
-            --bg-card: #1a1a2e;
-            --text-primary: #e8e8f0;
-            --text-secondary: #9898b0;
-            --accent-blue: #4a9eff;
-            --accent-purple: #8b5cf6;
-            --accent-gradient: linear-gradient(135deg, #4a9eff, #8b5cf6);
-            --border-color: rgba(255, 255, 255, 0.08);
+            --bg: #0a0a0f;
+            --card-bg: #12121a;
+            --card-border: #1e1e2e;
+            --text: #e0e0e8;
+            --text-muted: #8888a0;
+            --accent: #6c5ce7;
+            --accent-light: #a29bfe;
+            --success: #00cec9;
+            --warning: #fdcb6e;
+            --danger: #ff7675;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.7;
-            -webkit-font-smoothing: antialiased;
+            min-height: 100vh;
         }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(10, 10, 15, 0.85);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-color);
-            padding: 16px 0;
-        }
-
-        nav .container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        nav .logo {
-            font-size: 1.25rem;
-            font-weight: 700;
-            background: var(--accent-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-decoration: none;
-        }
-
-        nav .back-link {
-            color: var(--accent-blue);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: opacity 0.2s;
-        }
-
-        nav .back-link:hover {
-            opacity: 0.8;
-        }
-
-        /* Container */
         .container {
-            max-width: 800px;
+            max-width: 860px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 40px 24px 80px;
         }
-
-        /* Content */
-        .content {
-            padding-top: 100px;
-            padding-bottom: 60px;
-        }
-
-        .page-header {
+        .header {
             text-align: center;
             margin-bottom: 48px;
+            padding: 48px 24px;
+            background: linear-gradient(135deg, rgba(108,92,231,0.15), rgba(0,206,201,0.08));
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
         }
-
-        .page-header h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            background: var(--accent-gradient);
+        .header h1 {
+            font-size: 2.2em;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-light), var(--success));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
         }
-
-        .page-header .meta {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
+        .header .subtitle {
+            font-size: 1.1em;
+            color: var(--text-muted);
+            margin-bottom: 16px;
         }
-
+        .header .meta {
+            font-size: 0.85em;
+            color: var(--text-muted);
+        }
         .section {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             border-radius: 16px;
             padding: 32px;
             margin-bottom: 24px;
+            transition: border-color 0.3s;
         }
-
+        .section:hover {
+            border-color: var(--accent);
+        }
         .section h2 {
-            font-size: 1.3rem;
-            font-weight: 600;
+            font-size: 1.3em;
+            font-weight: 700;
+            color: var(--accent-light);
             margin-bottom: 16px;
-            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-
-        .section p {
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-            font-size: 0.95rem;
+        .section h2 .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(108,92,231,0.15);
+            font-size: 18px;
         }
-
+        .section h3 {
+            font-size: 1.05em;
+            font-weight: 600;
+            color: var(--text);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .section p, .section li {
+            color: var(--text);
+            opacity: 0.88;
+            margin-bottom: 10px;
+        }
         .section ul {
             list-style: none;
             padding: 0;
         }
-
         .section ul li {
+            padding: 6px 0 6px 24px;
             position: relative;
-            padding-left: 24px;
-            margin-bottom: 8px;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
         }
-
         .section ul li::before {
-            content: '•';
+            content: "•";
             position: absolute;
             left: 8px;
-            color: var(--accent-purple);
+            color: var(--accent-light);
             font-weight: bold;
         }
-
-        .section strong {
-            color: var(--text-primary);
-        }
-
-        /* Summary Table */
-        .summary-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 16px;
-        }
-
-        .summary-table th,
-        .summary-table td {
-            text-align: left;
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border-color);
-            font-size: 0.9rem;
-        }
-
-        .summary-table th {
-            color: var(--accent-blue);
-            font-weight: 600;
-            white-space: nowrap;
-        }
-
-        .summary-table td {
-            color: var(--text-secondary);
-        }
-
-        /* Highlight Box */
         .highlight-box {
-            background: rgba(74, 158, 255, 0.08);
-            border: 1px solid rgba(74, 158, 255, 0.2);
+            background: rgba(108,92,231,0.1);
+            border: 1px solid rgba(108,92,231,0.25);
             border-radius: 12px;
             padding: 20px;
             margin: 16px 0;
         }
-
-        .highlight-box p {
-            color: var(--text-primary) !important;
-            margin-bottom: 0;
+        .highlight-box.success {
+            background: rgba(0,206,201,0.08);
+            border-color: rgba(0,206,201,0.25);
         }
-
-        /* Footer */
-        footer {
+        .highlight-box.warning {
+            background: rgba(253,203,110,0.08);
+            border-color: rgba(253,203,110,0.2);
+        }
+        .highlight-box strong {
+            color: var(--accent-light);
+        }
+        .highlight-box.success strong {
+            color: var(--success);
+        }
+        .lifecycle {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0;
+        }
+        .lifecycle-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+        }
+        .lifecycle-step .step-num {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: white;
+            font-weight: 700;
+            font-size: 0.85em;
+        }
+        .summary-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 16px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--card-border);
+        }
+        .summary-table th {
+            background: rgba(108,92,231,0.15);
+            color: var(--accent-light);
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 0.9em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .summary-table td {
+            padding: 14px 16px;
+            border-top: 1px solid var(--card-border);
+            font-size: 0.92em;
+        }
+        .summary-table tr:nth-child(even) td {
+            background: rgba(255,255,255,0.015);
+        }
+        .summary-table td:first-child {
+            font-weight: 600;
+            color: var(--text);
+            width: 40%;
+        }
+        .summary-table td:last-child {
+            color: var(--success);
+        }
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 0.78em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .badge-green {
+            background: rgba(0,206,201,0.15);
+            color: var(--success);
+        }
+        .badge-red {
+            background: rgba(255,118,117,0.15);
+            color: var(--danger);
+        }
+        .contact-section {
             text-align: center;
-            padding: 32px 24px;
-            border-top: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            font-size: 0.85rem;
+            padding: 40px;
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            margin-top: 32px;
         }
-
-        footer a {
-            color: var(--accent-blue);
+        .contact-section h2 {
+            justify-content: center;
+        }
+        .contact-section a {
+            color: var(--accent-light);
             text-decoration: none;
+            font-weight: 600;
         }
-
+        .contact-section a:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            text-align: center;
+            padding: 40px 24px;
+            color: var(--text-muted);
+            font-size: 0.85em;
+        }
+        .footer a {
+            color: var(--accent-light);
+            text-decoration: none;
+            margin: 0 8px;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .nav-links {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            margin: 0 12px;
+            font-size: 0.9em;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover {
+            color: var(--accent-light);
+        }
         @media (max-width: 640px) {
-            .page-header h1 {
-                font-size: 1.6rem;
-            }
-            .section {
-                padding: 24px 20px;
-            }
+            .container { padding: 20px 16px 60px; }
+            .header { padding: 32px 16px; }
+            .header h1 { font-size: 1.6em; }
+            .section { padding: 24px 20px; }
+            .summary-table td, .summary-table th { padding: 10px 12px; font-size: 0.85em; }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <div class="container">
-            <a href="./" class="logo">FaceMetric AI</a>
-            <a href="./" class="back-link">← Back to Home</a>
-        </div>
-    </nav>
+    <div class="container">
 
-    <div class="container content">
-        <div class="page-header">
+        <!-- Navigation -->
+        <div class="nav-links">
+            <a href="https://evrenhaznedaroglu2024-ops.github.io/facemetric-ai/">Home</a>
+            <a href="https://evrenhaznedaroglu2024-ops.github.io/facemetric-ai/terms-of-use.html">Terms of Use</a>
+            <a href="https://evrenhaznedaroglu2024-ops.github.io/facemetric-ai/support.html">Support</a>
+        </div>
+
+        <!-- Header -->
+        <div class="header">
             <h1>Privacy Policy</h1>
-            <p class="meta">Effective Date: March 21, 2026 · Last Updated: March 21, 2026</p>
-        </div>
-
-        <div class="section">
-            <p>FaceMetric AI ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, store, and handle your data — specifically face data — when you use the FaceMetric AI mobile application (the "App").</p>
-        </div>
-
-        <div class="section">
-            <h2>1. Collection of Face Data</h2>
-            <p>When you use FaceMetric AI, you voluntarily provide a single facial photograph via your device's photo library or camera. This photograph constitutes the only "face data" we collect.</p>
-            <div class="highlight-box">
-                <p><strong>We do NOT collect, use, or access:</strong></p>
+            <div class="subtitle">FaceMetric AI</div>
+            <div class="meta">
+                Effective Date: March 21, 2026 &nbsp;|&nbsp; Last Updated: March 25, 2026
             </div>
-            <ul>
-                <li>TrueDepth camera data or depth maps</li>
-                <li>ARKit face tracking data</li>
-                <li>Face ID or any biometric identifier data</li>
-                <li>Any facial recognition or identification data</li>
-            </ul>
+        </div>
+
+        <p style="margin-bottom: 32px; color: var(--text-muted); text-align: center;">
+            FaceMetric AI ("we," "us," or "our") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, store, and handle your data — specifically face data — when you use the FaceMetric AI mobile application (the "App").
+        </p>
+
+        <!-- Section 1: Collection -->
+        <div class="section">
+            <h2><span class="icon">📷</span> 1. Collection of Face Data</h2>
+            <p>When you use FaceMetric AI, you voluntarily provide a single facial photograph via your device's photo library or camera. This photograph constitutes the only "face data" we collect.</p>
+            
+            <div class="highlight-box">
+                <strong>We do NOT collect, use, or access:</strong>
+                <ul>
+                    <li>TrueDepth camera data or depth maps</li>
+                    <li>ARKit face tracking data</li>
+                    <li>Face ID or any biometric identifier data</li>
+                    <li>Any facial recognition or identification data</li>
+                </ul>
+            </div>
+            
             <p>The face data we receive is limited exclusively to the standard 2D photograph you provide.</p>
         </div>
 
+        <!-- Section 2: Use -->
         <div class="section">
-            <h2>2. Use of Face Data</h2>
+            <h2><span class="icon">🧠</span> 2. Use of Face Data</h2>
             <p>Your face data is used <strong>solely and exclusively</strong> for the following purpose:</p>
             <ul>
                 <li>To perform an <strong>Aesthetic Profilometric Analysis</strong>, which calculates facial symmetry, geometric proportions, and aesthetic ratios based on the photograph you submit.</li>
             </ul>
-            <p>Your face data is <strong>NOT</strong> used for:</p>
-            <ul>
-                <li>User identification or authentication</li>
-                <li>Facial recognition</li>
-                <li>Marketing, advertising, or user profiling</li>
-                <li>Training machine learning models</li>
-                <li>Any purpose other than delivering your requested analysis report</li>
-            </ul>
+            
+            <div class="highlight-box warning">
+                <strong>Your face data is NOT used for:</strong>
+                <ul>
+                    <li>User identification or authentication</li>
+                    <li>Facial recognition</li>
+                    <li>Marketing, advertising, or user profiling</li>
+                    <li>Training machine learning models</li>
+                    <li>Any purpose other than delivering your requested analysis report</li>
+                </ul>
+            </div>
         </div>
 
+        <!-- Section 3: Retention (CRITICAL FOR APPLE) -->
         <div class="section">
-            <h2>3. Face Data Retention — Explicit Statement</h2>
-            <div class="highlight-box">
-                <p><strong>Face data is NOT retained.</strong> We explicitly confirm that FaceMetric AI does not retain, store, or archive any face data after the analysis is complete.</p>
+            <h2><span class="icon">🗑️</span> 3. Face Data Retention — Explicit Statement</h2>
+            
+            <div class="highlight-box success">
+                <strong>Face data is NOT retained.</strong> We explicitly confirm that FaceMetric AI does <strong>not</strong> retain, store, or archive any face data after the analysis is complete.
             </div>
-            <p>Here is the complete lifecycle of your face data:</p>
-            <ul>
-                <li><strong>Upload:</strong> Your photograph is transmitted securely via HTTPS (TLS 1.2+) to our dedicated analysis server.</li>
-                <li><strong>Processing:</strong> The photograph is held in volatile (temporary) server memory only for the duration required to complete the AI-powered aesthetic analysis. This processing time is typically less than 60 seconds.</li>
-                <li><strong>Immediate Deletion:</strong> Upon completion of the analysis and delivery of the report to your device, all face data — including the original photograph and any processed derivatives — is immediately and permanently deleted from our server's memory. No copies are saved to disk, database, or any persistent storage medium.</li>
-            </ul>
-            <p><strong>Reason we do NOT store face data:</strong> Face data is not required beyond the real-time analysis session. Since the sole purpose of collecting your photograph is to generate an immediate analysis report, there is no technical or business need to retain the data after the report is delivered. We have designed our system architecture to ensure face data exists only in temporary memory during active processing.</p>
-            <p><strong>Duration of storage:</strong> Your face data exists on our server for a maximum of 60 seconds (the typical processing window). This brief duration is necessary because the AI model requires the photograph in memory to perform the geometric and symmetry calculations. Once the calculations are complete and the report is transmitted back to your device, the data is purged from memory immediately.</p>
+
+            <p><strong>Complete lifecycle of your face data:</strong></p>
+            
+            <div class="lifecycle">
+                <div class="lifecycle-step">
+                    <span class="step-num">1</span>
+                    <div>
+                        <strong>Upload:</strong> Your photograph is transmitted securely via HTTPS (TLS 1.2+) to our dedicated analysis server.
+                    </div>
+                </div>
+                <div class="lifecycle-step">
+                    <span class="step-num">2</span>
+                    <div>
+                        <strong>Processing:</strong> The photograph is held in volatile (temporary) server memory <strong>only</strong> for the duration required to complete the AI-powered aesthetic analysis. This processing time is typically <strong>less than 60 seconds</strong>.
+                    </div>
+                </div>
+                <div class="lifecycle-step">
+                    <span class="step-num">3</span>
+                    <div>
+                        <strong>Immediate Deletion:</strong> Upon completion of the analysis and delivery of the report to your device, <strong>all face data — including the original photograph and any processed derivatives — is immediately and permanently deleted</strong> from our server's memory. No copies are saved to disk, database, or any persistent storage medium.
+                    </div>
+                </div>
+            </div>
+
+            <h3>Reason We Do NOT Store Face Data</h3>
+            <p>Face data is not required beyond the real-time analysis session. Since the sole purpose of collecting your photograph is to generate an immediate analysis report, there is no technical or business need to retain the data after the report is delivered. We have designed our system architecture to ensure face data exists only in temporary memory during active processing.</p>
+
+            <h3>Duration of Storage</h3>
+            <p>Your face data exists on our server for a maximum of <strong>60 seconds</strong> (the typical processing window). This brief duration is necessary because the AI model requires the photograph in memory to perform the geometric and symmetry calculations. Once the calculations are complete and the report is transmitted back to your device, the data is purged from memory immediately.</p>
+
+            <h3>Why This Specific Duration</h3>
+            <p>The 60-second window represents the maximum time needed for our AI model to analyze facial landmarks, calculate proportions, and generate the comprehensive report. This duration reflects the computational requirements of the analysis and nothing more. We do not extend this window for any other purpose.</p>
         </div>
 
+        <!-- Section 4: Third-Party Sharing (CRITICAL FOR APPLE) -->
         <div class="section">
-            <h2>4. Third-Party Sharing of Face Data</h2>
-            <div class="highlight-box">
-                <p><strong>FaceMetric AI does NOT share your face data with any third parties.</strong></p>
+            <h2><span class="icon">🚫</span> 4. Third-Party Sharing of Face Data</h2>
+            
+            <div class="highlight-box success">
+                <strong>FaceMetric AI does NOT share your face data with any third parties.</strong>
             </div>
+
+            <p>Specifically:</p>
             <ul>
                 <li>We do <strong>not</strong> share face data with advertising networks or data brokers.</li>
                 <li>We do <strong>not</strong> share face data with analytics providers.</li>
@@ -289,11 +388,17 @@
                 <li>We do <strong>not</strong> share face data with any external companies, organizations, or individuals.</li>
                 <li>We do <strong>not</strong> share face data with any AI model training services or cloud AI platforms.</li>
             </ul>
-            <p><strong>Reason we do not share:</strong> All analysis processing is performed entirely on our own dedicated server infrastructure. There is no technical or business reason to transmit your face data to any third party. Our system is self-contained and does not rely on external services for facial analysis.</p>
+
+            <h3>Reason We Do Not Share</h3>
+            <p>All analysis processing is performed entirely on our own dedicated server infrastructure. There is no technical or business reason to transmit your face data to any third party. Our system is self-contained and does not rely on external services for facial analysis.</p>
+
+            <h3>Third-Party Storage</h3>
+            <p>Since we do not share face data with any third parties, <strong>no third parties store your face data</strong>. There are zero third-party entities that receive, process, or retain your face data at any point.</p>
         </div>
 
+        <!-- Section 5: Data Security -->
         <div class="section">
-            <h2>5. Data Security</h2>
+            <h2><span class="icon">🔒</span> 5. Data Security</h2>
             <p>We employ the following security measures to protect your face data during the brief processing window:</p>
             <ul>
                 <li><strong>Encryption in Transit:</strong> All data transmission between your device and our server is encrypted using HTTPS with TLS 1.2 or higher.</li>
@@ -303,8 +408,38 @@
             </ul>
         </div>
 
+        <!-- Section 6: Data Retention/Deletion & Consent Revocation (NEW - REQUIRED BY APPLE) -->
         <div class="section">
-            <h2>6. Medical Disclaimer</h2>
+            <h2><span class="icon">↩️</span> 6. Data Retention/Deletion Policy and Consent Revocation</h2>
+            
+            <h3>Data Retention Policy</h3>
+            <p>No face data is retained after the analysis is complete. All face data — including the original photograph and any processed derivatives — is immediately and permanently deleted from server memory upon completion of the analysis. Face data is never written to persistent storage (disk, database, or other storage medium) at any point during the process.</p>
+
+            <h3>Data Deletion</h3>
+            <p>Since face data is automatically and immediately deleted after each analysis session, there is no stored face data for us to provide, modify, or delete upon request once your analysis session ends. The analysis report generated from your photograph is stored only on your local device and can be deleted at any time by you.</p>
+
+            <div class="highlight-box">
+                <strong>How to delete your data:</strong>
+                <ul>
+                    <li>Delete the analysis report from within the app</li>
+                    <li>Delete the app from your device (which removes all locally stored data)</li>
+                    <li>For any data deletion requests or concerns, contact us at <strong>info@idakimi.com</strong></li>
+                </ul>
+            </div>
+
+            <h3>Consent Revocation</h3>
+            <p>You may revoke your consent for face data collection at any time by simply choosing not to submit a photograph. The app presents a clear data usage consent prompt before your first analysis, explaining exactly how your data will be used. You may:</p>
+            <ul>
+                <li><strong>Before analysis:</strong> Choose whether to submit a photograph. The app does not capture photographs without your explicit action.</li>
+                <li><strong>During analysis:</strong> Close the app at any time, and any in-progress data will be discarded.</li>
+                <li><strong>After analysis:</strong> The analysis report is stored only on your local device. You may delete it at any time by deleting the app or its data.</li>
+            </ul>
+            <p>If you have previously consented and wish to withdraw consent, you can simply stop using the analysis feature. No action is required to revoke consent as no data is retained between sessions.</p>
+        </div>
+
+        <!-- Section 7: Medical Disclaimer -->
+        <div class="section">
+            <h2><span class="icon">⚕️</span> 7. Medical Disclaimer</h2>
             <p>FaceMetric AI is an <strong>aesthetic analysis tool</strong> designed exclusively for symmetry and geometric proportion evaluation. It does <strong>NOT</strong> provide:</p>
             <ul>
                 <li>Medical diagnoses</li>
@@ -315,73 +450,96 @@
             <p>The analysis results are for <strong>informational and educational purposes only</strong> and should not be used as a substitute for professional medical consultation.</p>
         </div>
 
+        <!-- Section 8: Children's Privacy -->
         <div class="section">
-            <h2>7. Your Rights</h2>
-            <p>Since we do not retain your face data after the analysis is complete, there is no stored face data for us to provide, modify, or delete upon request once your analysis session ends.</p>
-            <p>However, you retain full control:</p>
-            <ul>
-                <li><strong>Before analysis:</strong> You choose whether to submit a photograph. The App does not capture photographs without your explicit action.</li>
-                <li><strong>During analysis:</strong> You may close the App at any time, and any in-progress data will be discarded.</li>
-                <li><strong>After analysis:</strong> The analysis report is stored only on your local device. You may delete it at any time by deleting the App or its data.</li>
-            </ul>
+            <h2><span class="icon">👶</span> 8. Children's Privacy</h2>
+            <p>FaceMetric AI is not intended for use by children under the age of 13. We do not knowingly collect face data or any personal information from children under 13. If you believe a child under 13 has provided us with personal information, please contact us immediately at <strong>info@idakimi.com</strong>.</p>
         </div>
 
+        <!-- Section 9: Changes -->
         <div class="section">
-            <h2>8. Children's Privacy</h2>
-            <p>FaceMetric AI is not intended for use by children under the age of 13. We do not knowingly collect face data or any personal information from children under 13. If you believe a child under 13 has provided us with personal information, please contact us immediately.</p>
-        </div>
-
-        <div class="section">
-            <h2>9. Changes to This Privacy Policy</h2>
+            <h2><span class="icon">📝</span> 9. Changes to This Privacy Policy</h2>
             <p>We may update this Privacy Policy from time to time. Any changes will be reflected in the "Last Updated" date at the top of this document. We encourage you to review this policy periodically.</p>
         </div>
 
+        <!-- Section 10: Apple 5.1.1 Summary (CRITICAL) -->
         <div class="section">
-            <h2>10. Summary of Face Data Practices (Apple App Store Guideline 5.1.1)</h2>
+            <h2><span class="icon">🍎</span> 10. Summary of Face Data Practices (Apple App Store Guideline 5.1.1)</h2>
             <p>For the express purpose of addressing Apple's App Store Review Guideline 5.1.1(i), we provide this comprehensive summary:</p>
+            
             <table class="summary-table">
-                <tr>
-                    <th>Requirement</th>
-                    <th>Our Practice</th>
-                </tr>
-                <tr>
-                    <td>Explicit statement on face data retention</td>
-                    <td>Face data is <strong>NOT retained</strong>. All face data is immediately and permanently deleted from server memory upon completion of analysis.</td>
-                </tr>
-                <tr>
-                    <td>Reasons for storing face data</td>
-                    <td>Face data is held in temporary server memory for a maximum of 60 seconds solely for the purpose of performing the AI-powered aesthetic analysis.</td>
-                </tr>
-                <tr>
-                    <td>Length of time face data is stored</td>
-                    <td>Maximum of <strong>60 seconds</strong> — only during active analysis processing. Never stored indefinitely.</td>
-                </tr>
-                <tr>
-                    <td>Third parties face data is shared with</td>
-                    <td><strong>None.</strong> Face data is not shared with any third parties whatsoever.</td>
-                </tr>
-                <tr>
-                    <td>Whether third parties store face data</td>
-                    <td><strong>Not applicable</strong> — since no face data is shared, no third parties store face data.</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Apple Requirement</th>
+                        <th>Our Practice</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Explicit statement on face data retention</td>
+                        <td>Face data is <strong>NOT retained</strong>. All face data is immediately and permanently deleted from server memory upon completion of analysis. <span class="badge badge-green">Not Retained</span></td>
+                    </tr>
+                    <tr>
+                        <td>Reasons for storing face data</td>
+                        <td>Face data is held in temporary server memory for a maximum of 60 seconds <strong>solely</strong> for the purpose of performing the AI-powered aesthetic analysis. It is not stored beyond this processing window.</td>
+                    </tr>
+                    <tr>
+                        <td>Length of time face data is stored</td>
+                        <td>Maximum of <strong>60 seconds</strong> — only during active analysis processing. Face data is <strong>never</strong> stored indefinitely or written to persistent storage. <span class="badge badge-green">60 sec max</span></td>
+                    </tr>
+                    <tr>
+                        <td>Why this specific duration</td>
+                        <td>60 seconds is the maximum computational time required by our AI model to analyze facial landmarks and generate the report. No additional storage time is needed or used.</td>
+                    </tr>
+                    <tr>
+                        <td>Third parties face data is shared with</td>
+                        <td><strong>None.</strong> Face data is not shared with any third parties whatsoever. <span class="badge badge-red">None</span></td>
+                    </tr>
+                    <tr>
+                        <td>Reasons for sharing with third parties</td>
+                        <td><strong>Not applicable</strong> — we do not share face data with any third parties.</td>
+                    </tr>
+                    <tr>
+                        <td>Whether third parties store face data</td>
+                        <td><strong>Not applicable</strong> — since no face data is shared, no third parties store face data. <span class="badge badge-red">None</span></td>
+                    </tr>
+                    <tr>
+                        <td>Data retention/deletion policies</td>
+                        <td>Face data is automatically deleted immediately after analysis. Users can delete locally stored reports by deleting the app. Deletion requests can be sent to info@idakimi.com.</td>
+                    </tr>
+                    <tr>
+                        <td>How to revoke consent and/or request deletion</td>
+                        <td>Users can revoke consent by not submitting photographs. The app shows a consent prompt before first use. Local data is deleted by removing the app. Email: info@idakimi.com.</td>
+                    </tr>
+                </tbody>
             </table>
         </div>
 
-        <div class="section">
-            <h2>Contact Us</h2>
-            <p>If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us at:</p>
-            <p><strong>Email:</strong> <a href="mailto:info@idakimi.com" style="color: var(--accent-blue);">info@idakimi.com</a></p>
-            <p><strong>Phone:</strong> <a href="tel:+447441922077" style="color: var(--accent-blue);">+44 744 192 2077</a></p>
+        <!-- Contact -->
+        <div class="contact-section">
+            <h2><span class="icon">✉️</span> Contact Us</h2>
+            <p style="margin-top: 16px;">If you have any questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us at:</p>
+            <p style="margin-top: 16px; font-size: 1.1em;">
+                Email: <a href="mailto:info@idakimi.com">info@idakimi.com</a>
+            </p>
+            <p style="margin-top: 8px;">
+                Phone: <a href="tel:+447441922077">+44 744 192 2077</a>
+            </p>
         </div>
-    </div>
 
-    <footer>
-        <p>&copy; 2026 FaceMetric AI by <a href="https://idakimi.com">idakimi.com</a>. All rights reserved.</p>
-        <p style="margin-top: 8px;">
-            <a href="./">Home</a> · 
-            <a href="./terms-of-use.html">Terms of Use</a> · 
-            <a href="./support.html">Support</a>
-        </p>
-    </footer>
+        <!-- Footer -->
+        <div class="footer">
+            <p>&copy; 2026 FaceMetric AI by <a href="https://idakimi.com">idakimi.com</a>. All rights reserved.</p>
+            <p style="margin-top: 12px;">
+                <a href="https://evrenhaznedaroglu2024-ops.github.io/facemetric-ai/">Home</a> · 
+                <a href="https://evrenhaznedaroglu2024-ops.github.io/facemetric-ai/terms-of-use.html">Terms of Use</a> · 
+                <a href="https://evrenhaznedaroglu2024-ops.github.io/facemetric-ai/support.html">Support</a>
+            </p>
+            <p style="margin-top: 16px; font-size: 0.8em; color: var(--text-muted);">
+                This Privacy Policy applies to the FaceMetric AI application available on the Apple App Store.
+            </p>
+        </div>
+
+    </div>
 </body>
 </html>
